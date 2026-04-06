@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetHawk | The Ultimate Network Scanner</title>
+    <link rel="stylesheet" href="/static/styles.css?v=4.5">
+    <!-- Google Fonts for Modern Feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Header -->
+    <header>
+        <div class="logo">Net<span>Hawk</span></div>
+        <nav>
+            <ul id="nav-list">
+                <li><a href="#" class="active" data-nav="scan">Scan</a></li>
+                <li><a href="#" data-nav="networks">Networks</a></li>
+                <li><a href="#" data-nav="controls">Controls</a></li>
+                <li><a href="#" data-nav="results">Results</a></li>
+                <li><a href="#" data-nav="about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Section 1: Scan Settings (Default View) -->
+        <section class="section-card active-panel" id="panel-scan">
+            <h2>
+                <svg width="24" height="24" fill="none" stroke="var(--secondary)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Scan Settings
+            </h2>
+            
+            <div class="form-group">
+                <label>IP Address / Range</label>
+                <input type="text" id="scan-ip" placeholder="e.g., 192.168.1.0/24" value="192.168.100.0/24">
+            </div>
+
+            <div style="display:flex; gap:15px;" class="form-group">
+                <div style="flex:1;">
+                    <label>Start Port</label>
+                    <input type="number" id="port-start" placeholder="1" value="1">
+                </div>
+                <div style="flex:1;">
+                    <label>End Port</label>
+                    <input type="number" id="port-end" placeholder="1024" value="1024">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Scan Mode</label>
+                <select id="scan-mode">
+                    <option value="quick">Quick (Common Ports)</option>
+                    <option value="thorough">Thorough (Services + OS)</option>
+                    <option value="custom">Custom (Show Advanced Options)</option>
+                </select>
+            </div>
+
+            <div id="advanced-options" style="display:none; margin-bottom:1.5rem; border:1px solid var(--glass-border); padding:1rem; border-radius:10px; background:rgba(0,0,0,0.1);">
+                <label>Protocol</label>
+                <select id="scan-proto" style="margin-bottom:10px;">
+                    <option value="TCP">TCP (Standard)</option>
+                    <option value="UDP">UDP (Privileged)</option>
+                </select>
+                <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                    <input type="checkbox" id="scan-aggro" style="width:auto;"> Enable Aggressive Mode (-A)
+                </label>
+            </div>
+
+            <button class="btn btn-primary" id="start-scan-btn">START SCAN</button>
+            
+            <div id="current-status" style="margin-top:20px; font-size:0.8rem; color:var(--text-muted);">
+                Current Network: <span id="current-ssid" style="color:var(--secondary); font-weight:bold;">Discovering...</span>
+            </div>
+        </section>
+
+        <!-- Section: WiFi Networks Panel (Hidden by default) -->
+        <section class="section-card" id="panel-networks" style="display:none;">
+            <h2>
+                <svg width="24" height="24" fill="none" stroke="var(--secondary)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.59 16.11a6 6 0 0 1 6.82 0M12 20h.01"/></svg>
+                Available Networks
+            </h2>
+            <div id="networks-list">
+                <div class="loader"></div>
+            </div>
+        </section>
+
+        <!-- Section 2: Full Results Panel -->
+        <section class="section-card" id="panel-results">
+            <h2 style="justify-content: space-between;">
+                <span>Scan Results</span>
+                <span id="device-count" class="badge" style="background: var(--secondary);">0 Devices</span>
+            </h2>
+            <div id="device-grid">
+                <!-- Device cards -->
+            </div>
+        </section>
+
+        <section class="section-card" id="panel-controls" style="display:none;">
+            <h2 style="justify-content: space-between;">
+                <span>Smart Controls</span>
+                <button class="btn btn-primary" id="discover-controls-btn" style="width:auto; padding:10px 16px;">Discover TVs</button>
+            </h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+                Phase 1 supports Roku (Wi-Fi) and Android TV (ADB over Wi-Fi).
+            </p>
+            <div id="controls-list">
+                <div class="loader"></div>
+            </div>
+
+            <h2 style="justify-content: space-between; margin-top: 20px;">
+                <span>Bluetooth Devices</span>
+                <button class="btn btn-primary" id="refresh-bt-btn" style="width:auto; padding:10px 16px;">Refresh BT</button>
+            </h2>
+            <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
+                <span id="bt-power-status" class="badge" style="background:rgba(255,255,255,0.08);">BT: Unknown</span>
+                <button class="btn" id="bt-on-btn" style="width:auto; padding:8px 12px;">Bluetooth ON</button>
+                <button class="btn" id="bt-off-btn" style="width:auto; padding:8px 12px;">Bluetooth OFF</button>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+                Discovery is live. Per-device Bluetooth command control is next phase.
+            </p>
+            <div id="bt-list">
+                <div class="loader"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- WiFi Login Modal -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 400px;">
+            <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <h2>WiFi Login</h2>
+                <button class="btn" style="width:auto; padding:5px 10px;" id="close-login-modal">&times;</button>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Connecting: <span id="login-ssid-target" style="color: var(--secondary); font-weight:bold;"></span></p>
+                <div style="margin-top: 20px;">
+                    <label>Network Password</label>
+                    <input type="password" id="wifi-password" placeholder="Enter password...">
+                </div>
+            </div>
+            <button class="btn btn-primary" id="submit-login">CONNECT TO NETWORK</button>
+        </div>
+    </div>
+
+    <!-- Port Scan Modal -->
+    <div id="port-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 500px; max-height: 80vh; overflow-y:auto;">
+            <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <h2>Port Scan Report</h2>
+                <button class="btn" style="width:auto; padding:5px 10px;" id="close-port-modal">&times;</button>
+            </div>
+            <div id="port-body">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal (Custom alert/confirm replacement) -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 450px; text-align:center;">
+            <h2 id="confirm-title" style="justify-content:center; color:var(--warning);">Attention</h2>
+            <p id="confirm-message" style="margin-bottom:25px; color:var(--text-muted);"></p>
+            <div style="display:flex; gap:15px;">
+                <button class="btn" style="background:rgba(255,255,255,0.05); border:1px solid var(--glass-border);" id="confirm-cancel">CANCEL</button>
+                <button class="btn btn-primary" id="confirm-ok">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Warning Alerts Layer (Toasts) -->
+    <div id="alert-toaster" style="position:fixed; bottom:30px; right:30px; z-index:5000; display:flex; flex-direction:column; gap:10px;"></div>
+
+    <script src="/static/main.js?v=4.6"></script>
+</body>
+</html>

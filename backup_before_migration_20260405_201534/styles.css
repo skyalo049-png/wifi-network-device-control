@@ -1,0 +1,284 @@
+:root {
+    --bg: #07111f;
+    --bg-accent: #0d1b2f;
+    --panel: rgba(15, 27, 45, 0.82);
+    --panel-strong: rgba(19, 37, 61, 0.95);
+    --border: rgba(128, 164, 217, 0.18);
+    --text: #ecf4ff;
+    --muted: #8fa8c7;
+    --cyan: #52e0ff;
+    --green: #65f2af;
+    --amber: #ffcb6b;
+    --danger: #ff6b81;
+    --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top right, rgba(82, 224, 255, 0.12), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(101, 242, 175, 0.12), transparent 25%),
+        linear-gradient(180deg, #040914, #0a1322 52%, #07111f);
+}
+
+.page-shell {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent);
+    pointer-events: none;
+}
+
+.dashboard {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 40px 0 48px;
+}
+
+.hero,
+.toolbar,
+.device-card,
+.error-banner {
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 32px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(9, 21, 38, 0.92), rgba(13, 27, 47, 0.7));
+}
+
+.eyebrow,
+.device-type,
+dt,
+.stat-label,
+.ports-header span {
+    margin: 0;
+    color: var(--cyan);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 10px 0 14px;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    line-height: 1;
+}
+
+.hero-copy,
+#subnets,
+dd,
+.ports-list,
+.status-pill,
+.device-badge {
+    color: var(--muted);
+}
+
+.hero-copy {
+    margin: 0;
+    max-width: 700px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 16px;
+    min-width: 320px;
+}
+
+.stat {
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stat strong {
+    display: block;
+    margin-top: 12px;
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 24px 0;
+    padding: 20px 24px;
+    border-radius: 22px;
+    background: var(--panel);
+}
+
+.status-pill {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-weight: 700;
+}
+
+.status-loading {
+    color: var(--amber);
+}
+
+.status-success {
+    color: var(--green);
+}
+
+.status-error {
+    color: var(--danger);
+}
+
+.toolbar-copy {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, var(--cyan), #7bf7cc);
+    color: #03111f;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.error-banner {
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 107, 129, 0.1);
+    color: #ffd7de;
+}
+
+.hidden {
+    display: none;
+}
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+}
+
+.device-card {
+    padding: 22px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, var(--panel-strong), rgba(12, 23, 40, 0.86));
+}
+
+.card-header,
+.ports-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.device-name {
+    margin: 8px 0 0;
+    font-size: 1.5rem;
+}
+
+.device-badge {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(101, 242, 175, 0.08);
+    color: var(--green);
+    border: 1px solid rgba(101, 242, 175, 0.14);
+}
+
+.device-details {
+    display: grid;
+    gap: 14px;
+    margin: 24px 0 0;
+}
+
+dt {
+    margin-bottom: 6px;
+}
+
+dd {
+    margin: 0;
+    word-break: break-word;
+}
+
+.ports-block {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.port-count {
+    color: var(--text);
+}
+
+.ports-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.port-chip {
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(82, 224, 255, 0.08);
+    border: 1px solid rgba(82, 224, 255, 0.14);
+    color: var(--text);
+    font-size: 0.92rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 32px;
+    border-radius: 24px;
+    border: 1px dashed rgba(255, 255, 255, 0.14);
+    text-align: center;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 800px) {
+    .dashboard {
+        width: min(100% - 20px, 1200px);
+        padding-top: 20px;
+    }
+
+    .hero,
+    .toolbar {
+        padding: 20px;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-meta {
+        min-width: 0;
+        grid-template-columns: 1fr 1fr;
+    }
+}

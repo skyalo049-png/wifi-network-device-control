@@ -1,0 +1,358 @@
+/* NetHawk Elite Theme v4.1 */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+    --primary: #0D47A1;
+    --secondary: #2196F3;
+    --accent: #FFEB3B;
+    --bg-dark: #020617; /* Deep midnight blue */
+    --bg-glow: #0d1e3a; /* Subtle inner highlight */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(33, 150, 243, 0.2);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --success: #00e676;
+    --warning: #ffb74d;
+    --danger: #ff5252;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', system-ui, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, var(--bg-glow) 0%, var(--bg-dark) 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* --- Digital Grid Overlay --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(33, 150, 243, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33, 150, 243, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- Layout Components --- */
+
+header {
+    background: rgba(13, 71, 161, 0.4);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.25rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
+}
+
+.logo span { color: var(--secondary); }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+}
+
+nav a:hover, nav a.active {
+    color: var(--text-main);
+    background: rgba(33, 150, 243, 0.15);
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+}
+
+main {
+    margin-top: 100px;
+    padding: 2rem 5%;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    padding: 2.2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Forms & Neon Inputs --- */
+
+.form-group { margin-bottom: 2rem; }
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+input, select {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px rgba(33, 150, 243, 0.25);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--secondary), #1976D2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--accent);
+    color: var(--bg-dark);
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(255, 235, 59, 0.4);
+}
+
+/* --- Results & Device Cards --- */
+
+.device-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity:0; transform: translateY(10px); }
+    to { opacity:1; transform: translateY(0); }
+}
+
+.device-card:hover {
+    background: rgba(33, 150, 243, 0.05);
+    border-color: rgba(33, 150, 243, 0.5);
+    transform: translateX(5px);
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+
+/* Neon Pulse Animation for Online Status */
+.pulse-online {
+    animation: neonPulse 2s infinite ease-in-out;
+    box-shadow: 0 0 10px var(--success);
+}
+
+@keyframes neonPulse {
+    0% { opacity: 0.8; box-shadow: 0 0 5px var(--success); }
+    50% { opacity: 1; box-shadow: 0 0 15px var(--success); }
+    100% { opacity: 0.8; box-shadow: 0 0 5px var(--success); }
+}
+
+.loader {
+    width: 45px; height: 45px;
+    border: 4px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    margin: 3rem auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Modals --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(15px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #0d1117;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* --- Elite Toasts --- */
+.toast {
+    background: rgba(13, 17, 23, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-left: 4px solid var(--secondary);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: var(--text-main);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    animation: toastIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 300px;
+}
+
+@keyframes toastIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-success { border-left-color: var(--success); }
+.toast-error { border-left-color: var(--danger); }
+.toast-warning { border-left-color: var(--warning); }
+
+/* --- WiFi Network Cards --- */
+.network-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.network-card:hover {
+    background: rgba(33, 150, 243, 0.08);
+    transform: translateX(5px);
+}
+
+.network-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.network-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- Smart Controls --- */
+.control-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.control-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.control-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.control-meta {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.control-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+}
+
+.control-actions .btn {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.72rem;
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+}
+
+.bt-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 0.9rem;
+    margin-bottom: 0.7rem;
+}
