@@ -17,7 +17,7 @@ Dark-theme Flask dashboard for scanning the local network with Nmap and showing 
 .venv\Scripts\python main.py
 ```
 
-4. Open `http://127.0.0.1:5000`.
+4. Open `http://127.0.0.1:5006`.
 
 ## Notes
 
